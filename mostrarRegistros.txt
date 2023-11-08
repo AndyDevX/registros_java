@@ -1,0 +1,38 @@
+public void obtenerRegistros () {
+        String query = "SELECT A.*, L.licenciatura FROM alumnos A JOIN cat_licenciaturas L ON A.id_licenciatura = L.id_licenciatura";
+        
+        try {
+            Consulta cons = new Consulta();
+            
+            cons.conectar();
+            ResultSet resultado = cons.ejecutarConsulta(query);
+            Object[] alumno = new Object[6];
+            modelo = (DefaultTableModel) alumnos.getModel();
+            
+            while (resultado.next()) {
+                alumno[0] = resultado.getString("matricula");
+                alumno[1] = resultado.getString("nombre");
+                alumno[2] = resultado.getString("apellido_p");
+                alumno[3] = resultado.getString("apellido_m");
+                alumno[4] = resultado.getInt("semestre");
+                alumno[5] = resultado.getString("licenciatura");
+                
+                modelo.addRow(alumno);
+            }
+            
+            // Deshabilitamos la edición de las celdas
+            TableCellEditor nonEditableEditor = new DefaultCellEditor(new JTextField()) {
+                @Override
+                public boolean isCellEditable(EventObject e) {
+                    return false;
+                }
+            };
+            alumnos.setDefaultEditor(Object.class, nonEditableEditor);
+        
+            alumnos.setModel(modelo);
+            cons.desconectar();
+            
+        } catch (Exception e) {
+            System.out.println("Hubo un error");
+        }
+    }

@@ -11,9 +11,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.table.*;
 
 
@@ -64,7 +66,7 @@ public class Lista_2 extends javax.swing.JFrame {
         b_2_mostrar = new javax.swing.JButton();
         hora = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scrollAsist = new javax.swing.JScrollPane();
         listaAsist = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -210,7 +212,7 @@ public class Lista_2 extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
         );
 
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de alumnos"));
+        scrollAsist.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de alumnos registrados"));
 
         listaAsist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -220,7 +222,12 @@ public class Lista_2 extends javax.swing.JFrame {
                 "id_asistencia", "nombre_evento", "nombre", "apellido_p", "apellido_m", "hora_entrada", "hora_salida"
             }
         ));
-        jScrollPane2.setViewportView(listaAsist);
+        listaAsist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaAsistMouseClicked(evt);
+            }
+        });
+        scrollAsist.setViewportView(listaAsist);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
 
@@ -294,7 +301,7 @@ public class Lista_2 extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(scrollAsist, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -303,7 +310,7 @@ public class Lista_2 extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollAsist, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -359,18 +366,44 @@ public class Lista_2 extends javax.swing.JFrame {
     }//GEN-LAST:event_matricula_ingresadaActionPerformed
 
     private void agregar_asistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_asistenciaActionPerformed
-       
+
         String hora = this.hora.getText();
-        String sql = "INSERT INTO asistencia_eventos (id_evento, matricula, hora_entrada) VALUES ('"+id_evento+"', '"+matricula1.getText()+"', '"+hora+"')";
+        String mat = matricula_ingresada.getText();
+        
+        String comprobar = "SELECT * FROM asistencia_eventos WHERE id_evento = "+ id_evento +" AND matricula = '"+ mat +"';";
         Consulta cons = new Consulta();
-       
-        try { 
+        
+        try {
             cons.conectar();
-            cons.agregarRegistro(sql);
-            System.out.println("La asistencia se registró con éxito");
+            
+            ResultSet resultado = cons.ejecutarConsulta(comprobar);
+            
+            if (resultado.next()) {
+                String matricula = resultado.getString("matricula");
+
+                JOptionPane.showMessageDialog(null, "Este alumno ya está registrado");
+                
+            }
+            else {
+                System.out.println("No se encontró ninguna coincidencia");
+                
+                String sql = "INSERT INTO asistencia_eventos (id_evento, matricula, hora_entrada) VALUES ('"+id_evento+"', '"+mat+"', '"+hora+"')";
+       
+                    try { 
+                        cons.conectar();
+                        cons.agregarRegistro(sql);
+                        JOptionPane.showMessageDialog(null, "La asistencia se registró con éxito");
+                    } catch (Exception ex) {
+                        Logger.getLogger(Lista_2.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null,"Hubo un error con la asistencia");
+                    }
+                mostrar_datos_asistencia();
+            }
+            
         } catch (Exception ex) {
             Logger.getLogger(Lista_2.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
         
                                          
@@ -380,12 +413,21 @@ public class Lista_2 extends javax.swing.JFrame {
     }//GEN-LAST:event_agregar_asistenciaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        String matricula = matricula1.getText();
+        
+        Eliminar(matricula);
+        
+        nombre1.setText(null);
+        apellido1.setText(null);
+        apellido2.setText(null);
+        matricula1.setText(null);
+        hora.setText(null);
+        
+        mostrar_datos_asistencia();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void b_mostrar_datosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_mostrar_datosActionPerformed
         this.matricula=matricula_ingresada.getText();
-        
         mostrar_datos_alumno();
         
         time();
@@ -405,7 +447,6 @@ public class Lista_2 extends javax.swing.JFrame {
 
     private void nombre_eventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_eventoActionPerformed
 
-        
         int event = nombre_evento.getSelectedIndex();
         String sql = "SELECT nombre_evento FROM eventos WHERE id_evento = "+event+";";
         
@@ -419,7 +460,7 @@ public class Lista_2 extends javax.swing.JFrame {
                 this.id_evento = event;
                 System.out.println("El ID del evento es: "+id_evento);
                 
-                mostrar_datos_asistencia();
+                clearTableAsist();
             } else {
                 System.out.println("No se encontró ningun evento con ese nombre.");
             }
@@ -427,6 +468,16 @@ public class Lista_2 extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Hubo un error con el ID");
         }
+        
+        mostrar_datos_asistencia();
+        int count = listaAsist.getRowCount();
+        String title = "Total de alumnos registrados = " + count;
+        
+        Border etchedBorder = BorderFactory.createEtchedBorder();
+        Border etchedTitledBorder = BorderFactory.createTitledBorder(etchedBorder, title);
+
+        scrollAsist.setBorder(etchedTitledBorder);
+
     }//GEN-LAST:event_nombre_eventoActionPerformed
 
     private void apellido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellido1ActionPerformed
@@ -436,10 +487,6 @@ public class Lista_2 extends javax.swing.JFrame {
     private void nombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre1ActionPerformed
      
     }//GEN-LAST:event_nombre1ActionPerformed
-
-    private void datosalumnoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_datosalumnoAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_datosalumnoAncestorAdded
 
     private void b_2_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_2_mostrarActionPerformed
         this.matricula=matricula_ingresada.getText();  
@@ -455,6 +502,46 @@ public class Lista_2 extends javax.swing.JFrame {
         menu menu = new menu();
         menu.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void datosalumnoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_datosalumnoAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datosalumnoAncestorAdded
+
+    private void listaAsistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaAsistMouseClicked
+        int fila = listaAsist.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "No se seleccionó ningún alumno");
+        }
+        else {
+            String nombre = (String) listaAsist.getValueAt(fila, 2);
+            String apellido_p = (String) listaAsist.getValueAt(fila, 3);
+            String apellido_m = (String) listaAsist.getValueAt(fila, 4);
+            
+            String sql = "SELECT matricula FROM alumnos WHERE nombre = '"+ nombre +"' AND apellido_p = '"+ apellido_p +"' AND apellido_m = '"+ apellido_m +"'";
+            
+            Consulta cons = new Consulta();
+            
+            try {
+                cons.conectar();
+                ResultSet resultado = cons.ejecutarConsulta(sql);
+                
+                if (resultado.next()) {
+                    String matricula = resultado.getString("matricula");
+                    
+                    matricula1.setText(matricula);
+                    nombre1.setText(nombre);
+                    apellido1.setText(apellido_p);
+                    apellido2.setText(apellido_m);
+                    
+                } else {
+                    System.out.println("No se encontró ninguna matrícula para ese nombre.");
+                }
+                
+            } catch (Exception e) {
+                System.out.println("Hubo un error con el alumno");
+            }
+        }
+    }//GEN-LAST:event_listaAsistMouseClicked
 
     /**
      * @param args the command line arguments
@@ -499,6 +586,7 @@ public class Lista_2 extends javax.swing.JFrame {
         System.out.println(query);
         
         try{
+            clearTable();
             Consulta cons=new Consulta();
             cons.conectar();
             ResultSet resultado=cons.ejecutarConsulta(query);
@@ -586,10 +674,11 @@ public class Lista_2 extends javax.swing.JFrame {
     }
     
     public void clearTable(){
-        
-        for(int i=0; i<=datosalumno.getRowCount();i++){
-            modelo.removeRow(i);
-            i=i-1;
+        if (datosalumno.getRowCount() != 0) {
+            for(int i=0; i<=datosalumno.getRowCount();i++){
+                modelo.removeRow(i);
+                i=i-1;
+            }
         }
     }
     
@@ -656,6 +745,30 @@ public class Lista_2 extends javax.swing.JFrame {
         
         hora.setText( dtf.format(now) );
     }
+    
+    public void Eliminar(String matricula) {
+        int fila = listaAsist.getSelectedRow();
+        
+        try {
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+            else {
+                String sql = "DELETE FROM asistencia_eventos WHERE matricula = '"+ matricula +"'";
+                System.out.println(sql);
+                
+                Consulta cons = new Consulta();
+                cons.conectar();
+                cons.agregarRegistro(sql);
+                
+                JOptionPane.showMessageDialog(null, "Asistencia eliminada");
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Hubo en error al eliminar");
+        }
+        clearTableAsist();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_asistencia;
@@ -676,11 +789,11 @@ public class Lista_2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable listaAsist;
     private javax.swing.JTextField matricula1;
     private javax.swing.JTextField matricula_ingresada;
     private javax.swing.JTextField nombre1;
     private javax.swing.JComboBox<String> nombre_evento;
+    private javax.swing.JScrollPane scrollAsist;
     // End of variables declaration//GEN-END:variables
 }

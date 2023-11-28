@@ -1,0 +1,209 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 29-11-2023 a las 00:21:10
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `registro_asistencia_eventos`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `alumnos`
+--
+
+CREATE TABLE `alumnos` (
+  `matricula` varchar(12) NOT NULL,
+  `nombre` varchar(40) NOT NULL,
+  `apellido_p` varchar(40) NOT NULL,
+  `apellido_m` varchar(40) DEFAULT NULL,
+  `semestre` int(11) NOT NULL,
+  `id_licenciatura` int(11) NOT NULL,
+  `firma` blob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `alumnos`
+--
+
+INSERT INTO `alumnos` (`matricula`, `nombre`, `apellido_p`, `apellido_m`, `semestre`, `id_licenciatura`, `firma`) VALUES
+('CLA2221001', 'Alexis Iván', 'Ayuso', 'Guerrero', 5, 2, 0xffd8ffe000104a46494600010100025802580000ffdb004300080606070605080707070909080a0c140d0c0b0b0c1912130f141d1a1f1e1d1a1c1c20242e2720222c231c1c2837292c30313434341f27393d38323c2e333432ffc0000b080064014d01011100ffc4001b00010002030101000000000000000000000005060103070402ffc400411000010401020305060109060701000000010002030405061112213107134151611422718191a11516234243526292b1c13253727382f024343563b2c2d1d2ffda0008010100003f00efe888888888888888888888888888888888888888888888888888888888bcf6ef55a1019ee5986bc23ac934818d1f32aa763b52d2ed98c18fb3672f607eab1755f60fd5a387eeb57e576acbdff4bd076d8c3d24c9dc8eb6dfe91c4e59dbb4cb5cf7d2f41a7c369ec387fe210e3fb47682e667f4fc8efd87e3a40dfa87eebcbf97398d3791ab535b62ab56ad6a4114395c7cae7d7e33d1af6bbde67cf7fb15d041dd65111111111111111111111111111111169b36abd381f3d99a386160ddd248f0d6b47a93c82a54fda750b73baa697c6ded4569a762693386069fde99db347cb75f031dda167f9dfcad1d3955dfa8c7c7ed1636f2323fdd07d5a17a69f65ba6a29c5ac8c3633573c6c65677583fc27dd1f456ead52bd385b0d68638626f4644c0d68f905bd11731edc678dfa09b8b63449772372182ac7fa45c1dbee3f97cd745c7c2fad42bc123b89f144c639de640009fb2f4a222222222222222222222222222228fcb6731b81a4eb995bb053acdfd64cf0d04f90f127d02a70d5fa93547bba4309dc52774cb65da638c8f38e21ef3fe2760b755ecd2a5db0cbbaaf256b515b6f30db4782b467f7216fba07c77575af560ab0320af0c7144c1b3638d81ad1f00392dc8888b5cd3c75e192699ed8e38da5ef7bcec1a00dc927c005ca34d365ed27b4276ae998e1a7f0e5d06258f1b77d2fe94bb7a7ff9f22bad01b2ca222222222222222222222222222d366d414eb4962ccd1c30c6389f248e0d6b47992790541975be5b554cea9a171ed96007824cd5d0595987a1eedbd6523e8bdf87ecea84175b96cf599b3d98ebed57802c8cff00db8ffb2c0aea06c888888be259590c6e924735ac6825ce71d8003a925723c9e46f76b998930785924afa4ab481b91c8b791b6e1cfba8fd3d7e6796c0f55c763eae2b1f051a50320ad5d8238e260e4d685ea444444444444444444444444444556d53ae31fa6a48a9363972198b1cab636a8e29a43e67f65bea7eea0aae8acaeacb31e475e586c9134f1c183ace22b43e4643fad77d97428208eb42d8618d91c4c01ac631a1ad681e000e816c44445e4c864aa62eb77f7266c6ce20d1d49738f46b40e6e71f0039a8a6d5bb9d709324c755a1beeca21defcbe46623c3f701dbf689e8256fdfa78ac7cd72ed88abd585bc524b2bb85ad1f15cae49f33db0d9757abed18bd131bf6967db866c8ec7a37c99fecee790ea58ac5d2c36360c7e3eb475eac0de18e260d801fd4faf8af6a22222222c13b28acc6a6c2e9f8bbccbe4ea536edb8134a038fc1bd4fc82a937b568326f2dd35a6f399b60fd7c35fba87f8dff00fc521a63b42af9ecf59d3f7717731199aecef5d56d6c7899cb9b5c391ea3eaae68888888888888b04ec173ecd6b2c8e73292e9cd0ed8e7bb19e1bb94906f5e88ff00de4f20397c79ed37a5344e3b4c472cec7c9732964f15bc8d93c534eef89e8df41f7567e88889baf1dbcae3f1ff00f397ab57ff003a66b3f995016b5b63ac5cfc33076a8e42fb9a0922d3443083d0bde0f3ff000b7771f41cd4963b06d82d7e217ec3aee488204ef6f0b6307ab62674637ea4f892bc5aaf5b61f46d26befcc5f6641b57a708e29a73d006b7cb7f13c95429692ce76817e2cbeb906a62e3771d3c046e3c23c9d31f13e9fcba2e952cf4711443a696bd4ab1343417b9b1b1a074037d800ab6fed4b43b27ee4ea5c7f1efb6e1e4b7f880dbeead35ad417208e7ad2b268641c4c92370735c3cc11d56e58dd4466f5560b4e45de663295698db70d9641c4ef837a9f905541da5dccb1db4b690cbe563f0b33345580fa873f99fa2d76b5ceafc1c26e677433863dbce5971f79b61f10f32cd86e15bf01a9f11a9b1ecbb88bd0d985c373c2ed9cc3e4e6f507e2be331abb4fe0232fcae629d5dbf45f28e23f068e67e8aa47b4fb39a718b47697c965f7e42d4cdf66ae3d789dccfd93f26fb41d47cf39a9e0c356775a9858fdfdbc8caee7bfc3752987ecb349e1e6f6938ef6fb9bee6d641c6c484f9fbdc81f80572631ac60635a0340d8003601725d6d8dcbe98ed1ea6bfc750972745b5bd9af57846f246cd882e68f11b6c7d08e7c8eead389ed534565606be3cfd5aef239c56dddcbda7c8877f4256723daa688c5c65d36a1a7291fa159c6671f93775135bb42ceea8716691d2b61d01e432396718201ea1a3773be45742addffb3c7ed3ddf7dc23bceef7e1e2db9edbf3db7f35b91111111161ce0d049d801cf72b98e4b3592ed17256303a5ec3ea60a0777792ccc7d64f38a03e27cddfd3adef0181c769bc4c38cc5d6657ab10e4d6f527c5ce3e24f9952888be5ef6c6d2e7101a06e493b00150327da7c13df9313a471b36a2c9b4ecf358f0d788f4ddf2f4fa7d542e4a86a0b0c8e4d6dabe5a22c1da1c3601844929fd90e1bbdfebb0dbd42fac6764988c83fbebf838a8d3e20e104b319edcfcfacb292433fc2ce7e6ef056ac8767ba14d279b5a7b130c11b3774822117081e25c36dbe3bae61526cabb507e1fd93e5327631d192db325e777b421e5fa0e782e27e1f7529a7b46eb5d3d959f2b670b88cde6a57127296f22f2e68f00d696fbbf2e7f256a38ded2b2c386d66f0d8484f518faceb126dfe293600ad957b28c0bec36de767bfa82e0e7de64ec191a0fa306cd03d39ab49d3d87145f4862a90aae6f09845760691e5b6cb9969c932dd94ddc961aee172991d3b25874f8eb5421efcc21dd58e68e63c3e7b9e7ba9f93b44cb64018f4f687ceda90f2125e8c54887c4b8eeb50d3dafb51ee73ba8e2c2d4775a78567e708f2333b98f9299c2766da5b0537b4c18d659b84eeeb77499e527cf89dd3e402b60002c91bf554fc9765da332d69f6ace0abb6779ddcf81cf8493ebc0405bf17d9be8ec34825a5a7e93641d24919deb87cde4ab3b58d6001a0003a01d02fa444db9286bfa4b4ee564325fc1e3acc84ee5f2d66177d76dd628e90d398d787d2c1636bbc747475580fd7653206cb288888888b04ecb97e7f257bb42d416349606c3ebe1aa9e0cd64a23cdc7fb88cf99f13f1f01cfa1e23134b078baf8ec757657ab5d9c11c6ce807f527a93e257b91141ea9d558ad21869327969fbb89beeb18de6f95de0d68f13fcbc5734b7165b59d4fc675c643f26f4a13c50e2db2f772d91e1debba9dff0064733e007556ac4c390b14198fd29898f4e6180f76ddaafb4af1fb51c079effbd2ff0009563c469bc760df2598c493de95bf9fbd69fde4f28f579e83f746cd1e4ab99aed3f1d5aebb13a7aacda8731d056a23898c3fbf27468fafc94741a0f3babe765bd7f910eac1dc51e1283cb20678fe71c39bcfcfe6ba2d1c7d4c6538ea52af157af10e164513035ad1e802f4a222c6cb3b222222222222222222222222a4769fa86de134c32ae2c9fc5b2b3b68d3dbab5cfeaef90fb90a6f49e9aa9a4f4e55c4d41b889bbc921eb2c87fb4f3ea4fdb60a71114466b5361b4fc2d7e57210d62f3b471b8ef2487c9ac1bb9c7e01717c6c59aed63b42b79faaead1627132fb3d3f6e8dd27727af18879073ff004bde2003b6fbedb2e9f161301a6a4fc67399116720d049c8e5a66f133fcb0766c63d1807cd45d9ed52b64267d2d1f88bda86defb7790b0c75d87f7a5772ff7d568fc89d51abcf1eb4ce7b3d1773fc23124b2323ca493abbfdf3577c2e9dc4e9ea429e268414e01d5b13762ef527a93ea4a944444444444444444444444444444445ccfb556c94723a4b51c91bdf8ec56483ee168dfbb63b61c64790dbee15fabe5b1d669b6d417eacb5dc389b2b2669691e7beea22ff00683a4b18ee0b1a828197fba86512bfe1c2cdceff0025e13adefe4bddd3fa4f2f777e93dc68a50fc7793de23e0d58fc1758e6b9e5f3f0e26b9eb5b0d1ef211e46793723fd2d0a5b0ba37058095d3d2a2d371ffdbb73b8cd3bfe323f777df6552a5d8f418f96e369eaad4152a5a9dd3c95ea4ed88127d40dfd14a51ec9f4854b02ccf8e7e46c8fd764677583f471dbecae55eb435616c35e28e289a366b23686b47c00e4b6a22222222222222222222222222222222f892364b1b99235ae63810e6b86e08f221569fd9ce8c927333f4ce28bc9dcff00c334027e1d14cd0c2e2b14de1c76369d41d36af0363fe417bf608888888888888888888888888888888888888888888888888888888888888888888888888888bfffd9),
+('CLG2222001', 'Roberto', 'Pérez', 'Rodríguez', 3, 10, NULL),
+('CLS2221003', 'Andres', 'Ayuso', 'Guerrero', 5, 12, 0x89504e470d0a1a0a0000000d494844520000014d000000640800000000274f3d52000000206348524d00007a26000080840000fa00000080e8000075300000ea6000003a98000017709cba513c00000002624b474400ff878fccbf000000097048597300000f8200000f76013d6c4ad30000000774494d4507e70b130520393ea326bb0000039e4944415478daeddccb4edb40148061deff19d8546d37ddb0aca81050a1546d21b4a190801ddbb17371e25c210971e25b092934f19885678e7466acf3afe2598c469f503cbe84bd84826b0f7b01858a3421234dc8481332d2848c3421234dc8481332d2848c3421234dc8481332d2848c3421234dc8481332d2848c3421234dc8481332d2848c3421234dc8481332d2848c3421234dc8481332d2844c2acd187b01a2c9a339b375cd7457d8cb104a16cda0694dfcd5cc33efb1572292249a736bbcf9b07246d86b11480ecd89edbf7c8cac47ecd5f02785e68313fe3fb8b7b197c39f0c9a8b46b07514d77dee99b0934033b6e63bc7c336f68ab89340b3d7dd3d0e3465f79df89a8f56941aa92b7b1e42d78c1bd3f4506b88bd28ded035996f49633150f68b135b333052d792c1e14cdd3d12b6a6db4f0d8c8e83b981bc28ee90357d237d0a6a7e0ba7a4c95793b92ad72aedaaaeea160957d3afa7dca6d39bda9f326972d5497f6bb6dd8a5ebe254d9e023d4c8d749c1bed87459a3cf53be91157af69170dd2e4c998a747dcea5dad62932647cc39e849f3cab8faed922647dd1e33e45e3a1795016972545f30439df3ce7979429af95bd4d9b16ec92b556e2ff1162516a2a6e7b263c3d3fed7abd239dea2c442d43467ecd8f0d43bba3ed4f01625169ee64a8fd841ef647474fdde4404110a4f73ec640cf68ec37e75bf85e721169e6633eba58ec15112fddaf7f03cc4c2d3d49719830f9fe3f0f2633ff7649284a6b9ccdc54fa6741583a50f6552434cd51337378994427ef6639e7922634cd371ff3465f3ed0f3f4bc996ffd0146079f825c3349149a66e6492849826e5c3e8c72ce254d589aa1964dd6f192f6191e8760589a59b73cd6c3669418dff13804c3d2bc6f648dc68da76f53fd27a28758589aec23a1e7d1f56d25d2cc5de606c937d6cf30493377991b24fbf9e72da499bbac0dd2787379449a798b347687be32372f1f56cb98204221698677ec76d3f9f733b6bb1aa28758489a2bf69702af2f19fbcb9c93c91392e623b3795f5821cf4472258b6664cdb926922b59345d65efb76f2789e6a4c9378f64c9a1e95bcaded2dc490acdd056f6d9c56e489abebe7510b7957dac964a86dd7bb71067a075589a5bb7debd9ec0447285a4196baf173ce396aa6f6bb2a1dd917bd9ac4fdaca3e5363c3d27c790b6954244ce427190bbb55244c344d5f0fe2a96328fdbfa4d8d0de4e18689a352ecef96713de1b8761312e2677c2feb57fb1224dc8481332d2848c3421234dc8481332d284ec2f86a96ec488506cca0000002574455874646174653a63726561746500323032332d31312d31395430353a33323a34302b30303a3030d9cebee40000002574455874646174653a6d6f6469667900323032332d31312d31395430353a33323a34302b30303a3030a89306580000002874455874646174653a74696d657374616d7000323032332d31312d31395430353a33323a35372b30303a3030f68b19970000000049454e44ae426082),
+('CLS2221009', 'Mauricio', 'López', 'Perez', 3, 12, NULL),
+('CLT2221001', 'Pedro', 'Martínez', 'Pérez', 3, 16, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asistencia_eventos`
+--
+
+CREATE TABLE `asistencia_eventos` (
+  `id_asistencia` int(11) NOT NULL,
+  `id_evento` int(11) NOT NULL,
+  `matricula` varchar(12) NOT NULL,
+  `hora_entrada` time NOT NULL DEFAULT '00:00:00',
+  `hora_salida` time NOT NULL DEFAULT '00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `asistencia_eventos`
+--
+
+INSERT INTO `asistencia_eventos` (`id_asistencia`, `id_evento`, `matricula`, `hora_entrada`, `hora_salida`) VALUES
+(1, 1, 'CLS2221003', '10:47:27', '00:00:00'),
+(2, 2, 'CLS2221003', '11:07:17', '15:26:47'),
+(3, 3, 'CLS2221003', '08:07:30', '15:26:40'),
+(4, 4, 'CLS2221003', '13:07:45', '15:45:16'),
+(53, 1, 'cla2221001', '17:20:24', '00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cat_licenciaturas`
+--
+
+CREATE TABLE `cat_licenciaturas` (
+  `id_licenciatura` int(11) NOT NULL,
+  `licenciatura` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `cat_licenciaturas`
+--
+
+INSERT INTO `cat_licenciaturas` (`id_licenciatura`, `licenciatura`) VALUES
+(1, 'Administración'),
+(2, 'Arquitectura'),
+(3, 'Comunicación'),
+(4, 'Contaduría'),
+(5, 'Derecho'),
+(6, 'Diseño gráfico'),
+(7, 'Diseño de modas'),
+(8, 'Enfermería'),
+(9, 'Enseñanza del idioma inglés'),
+(10, 'Gastronomía'),
+(11, 'Ingeniería civil'),
+(12, 'Ingeniería en sistemas computacionales'),
+(13, 'Nutrición'),
+(14, 'Psicopedagogía'),
+(15, 'Trabajo social'),
+(16, 'Turismo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `eventos`
+--
+
+CREATE TABLE `eventos` (
+  `id_evento` int(11) NOT NULL,
+  `folio_evento` varchar(15) DEFAULT NULL,
+  `nombre_evento` varchar(45) NOT NULL,
+  `fecha` date NOT NULL,
+  `horario` time NOT NULL,
+  `lugar` varchar(45) NOT NULL,
+  `valor_horas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `eventos`
+--
+
+INSERT INTO `eventos` (`id_evento`, `folio_evento`, `nombre_evento`, `fecha`, `horario`, `lugar`, `valor_horas`) VALUES
+(1, 'ext/03/1023', 'Muestra de altares', '2023-10-20', '11:00:00', 'Pasillo UMMA', 2),
+(2, 'ext/04/1024', 'Taller de SQL Server', '2023-11-16', '12:30:00', 'Aula AC02', 1),
+(3, 'ext/4/1030', 'Concurso de catrinas', '2023-10-31', '12:00:00', 'Auditorio UMMA', 1),
+(4, 'ext/02/1021', 'Taller Github', '2023-12-05', '09:30:00', 'Aula AC01', 2),
+(6, 'ext/08/1043', 'Taller infraestructura de redes', '2023-11-30', '13:00:00', 'Taller de robótica', 2);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `alumnos`
+--
+ALTER TABLE `alumnos`
+  ADD PRIMARY KEY (`matricula`),
+  ADD KEY `id_licenciatura` (`id_licenciatura`);
+
+--
+-- Indices de la tabla `asistencia_eventos`
+--
+ALTER TABLE `asistencia_eventos`
+  ADD PRIMARY KEY (`id_asistencia`),
+  ADD KEY `id_evento` (`id_evento`),
+  ADD KEY `matricula` (`matricula`);
+
+--
+-- Indices de la tabla `cat_licenciaturas`
+--
+ALTER TABLE `cat_licenciaturas`
+  ADD PRIMARY KEY (`id_licenciatura`);
+
+--
+-- Indices de la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  ADD PRIMARY KEY (`id_evento`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `asistencia_eventos`
+--
+ALTER TABLE `asistencia_eventos`
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT de la tabla `cat_licenciaturas`
+--
+ALTER TABLE `cat_licenciaturas`
+  MODIFY `id_licenciatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `alumnos`
+--
+ALTER TABLE `alumnos`
+  ADD CONSTRAINT `alumnos_ibfk_1` FOREIGN KEY (`id_licenciatura`) REFERENCES `cat_licenciaturas` (`id_licenciatura`);
+
+--
+-- Filtros para la tabla `asistencia_eventos`
+--
+ALTER TABLE `asistencia_eventos`
+  ADD CONSTRAINT `asistencia_eventos_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`),
+  ADD CONSTRAINT `asistencia_eventos_ibfk_2` FOREIGN KEY (`matricula`) REFERENCES `alumnos` (`matricula`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
